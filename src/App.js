@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Col, Container, Form, Row } from 'react-bootstrap'
+import { Button, Col, Container, Form, NavItem, Row } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import Movie from './components/Movie'
@@ -39,6 +39,11 @@ class App extends Component {
   state = {
     // NO DIFFERENCE
     movieTitle: 'Wonder Woman', // the initial state
+    showMovie: true,
+  }
+
+  showName = (name) => {
+    return 'hello' + name
   }
 
   // componentDidMount() {
@@ -68,7 +73,7 @@ class App extends Component {
             <Col className="mt-4" md={{ span: 6, offset: 3 }}>
               <Form>
                 <Form.Group controlId="exampleForm.ControlSelect1">
-                  <Form.Label>Choose your movie!</Form.Label>
+                  <Form.Label>{this.showName('kostas')}</Form.Label>
                   <Form.Control
                     as="select"
                     value={this.state.movieTitle}
@@ -83,8 +88,19 @@ class App extends Component {
             </Col>
           </Row>
           <Row>
+            <Col>
+              <Button
+                variant={this.state.showMovie ? 'danger' : 'success'}
+                onClick={() => this.setState({ showMovie: !this.state.showMovie })}
+              >
+                {this.state.showMovie ? 'HIDE' : 'SHOW'} MOVIE
+              </Button>
+            </Col>
+          </Row>
+          <Row>
             <Col className="mt-4" md={{ span: 6, offset: 3 }}>
-              <Movie selectedMovie={this.state.movieTitle} />
+              {this.state.showMovie ? <Movie selectedMovie={this.state.movieTitle} /> : null}
+              {/* {this.state.showMovie && <Movie selectedMovie={this.state.movieTitle} />} */}
             </Col>
           </Row>
         </Container>

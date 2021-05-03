@@ -3,13 +3,17 @@ import { Card } from 'react-bootstrap'
 
 class Movie extends Component {
 
+    striveTimer = null
+
     state = {
         currentMovie: {}, // the initial state
         isError: false
     }
 
     componentDidMount = async () => { // will ALWAYS happen once
+        console.log('THIS IS COMPONENTDIDMOUNT')
         this.fetchData()
+        this.striveTimer = setInterval(() => { console.log('tick tok') }, 1000)
     }
 
     fetchData = async () => {
@@ -61,6 +65,12 @@ class Movie extends Component {
             // always pull the handbrake and set a condition for your setState
             this.fetchData()
         }
+    }
+
+    componentWillUnmount() {
+        console.log('BYE BYE')
+        // componentWillUnmount usually is the perfect place for doing CLEANUP
+        clearInterval(this.striveTimer)
     }
 
     render() {
